@@ -1,69 +1,69 @@
-# MyShell - Interprete de Línea de Comandos
+# MyShell - Command Line Interpreter
 
-Este proyecto implementa un intérprete de línea de comandos llamado MyShell en el lenguaje de programación C, diseñado para ejecutarse en entornos GNU/Linux. El objetivo principal es proporcionar un shell interactivo con funcionalidades básicas y capacidad para ejecutar comandos internos, programas externos, y scripts en segundo plano.
+This project implements a command line interpreter called MyShell in the C programming language, designed to run in GNU/Linux environments. The primary goal is to provide an interactive shell with basic functionalities and the ability to execute internal commands, external programs, and background scripts.
 
-### Autores:
+### Author:
 - **Bottini, Franco Nicolas**
 
-## Características Principales
+## Main Features
 
 ### 1. Command Line Prompt
-MyShell presenta un prompt que indica el nombre de usuario, el nombre del host y el directorio actual. El formato es el siguiente:
+MyShell displays a prompt indicating the username, hostname, and current directory. The format is as follows:
 
 ```
 username@hostname:~$
 ```
 
-### 2. Comandos Internos
-MyShell admite varios comandos internos:
+### 2. Internal Commands
+MyShell supports several internal commands:
 
-- **cd \<directorio\>**: Cambia el directorio actual a \<directorio\>. Si \<directorio\> no está presente, reporta el directorio actual. Si el directorio no existe, se imprime un mensaje de error. Además, el comando cambia la variable de entorno PWD. También soporta la opción `cd -`, que retorna al último directorio de trabajo (OLDPWD).
+- **cd \<directory\>**: Changes the current directory to \<directory\>. If \<directory\> is not specified, it reports the current directory. If the directory does not exist, an error message is displayed. Additionally, this command updates the PWD environment variable. The command also supports the `cd -` option, which returns to the last working directory (OLDPWD).
 
-- **clr**: Limpia la pantalla.
+- **clr**: Clears the screen.
 
-- **echo \<comentario\|env var\>**: Muestra \<comentario\> en la pantalla seguido por una línea nueva. Múltiples espacios/tabs pueden ser reducidos a un espacio.
+- **echo \<comment\|env var\>**: Displays \<comment\> on the screen followed by a newline. Multiple spaces/tabs are reduced to a single space.
 
-- **quit**: Cierra MyShell.
+- **quit**: Exits MyShell.
 
-### 3. Invocación de Programas
-Las entradas del usuario que no son comandos internos se interpretan como la invocación de un programa. La ejecución se realiza mediante `fork` y `execl`. MyShell admite tanto paths relativos como absolutos.
+### 3. Program Invocation
+User input that is not an internal command is interpreted as a program invocation. Execution is performed using `fork` and `execl`. MyShell supports both relative and absolute paths.
 
-### 4. Archivo Batch
-MyShell puede tomar sus comandos desde un archivo al ser invocado con un argumento. Por ejemplo:
+### 4. Batch File
+MyShell can execute commands from a file when invoked with an argument. For example:
 
 ```
 ./myshell batchfile
 ```
 
-El batchfile contiene un conjunto de comandos de línea para que MyShell ejecute. Cuando se alcanza el final del archivo (EOF), MyShell se cierra.
+The batchfile contains a set of line commands for MyShell to execute. When the end of the file (EOF) is reached, MyShell exits.
 
-### 5. Ejecución en Segundo Plano
-Si un comando termina con un ampersand (&), indica que la shell debe retornar al prompt inmediatamente después de lanzar el programa en segundo plano. Se imprime un mensaje indicando el trabajo y el ID de proceso:
+### 5. Background Execution
+If a command ends with an ampersand (&), the shell returns to the prompt immediately after launching the program in the background. A message is displayed indicating the job and process ID:
 
 ```
 [<job id>] <process id>
 ```
 
-Ejemplo:
+Example:
 ```
-$ echo 'hola' &
+$ echo 'hello' &
 [1] 10506
-hola
+hello
 ```
 
-## Compilación y Ejecución
+## Compilation and Execution
 
-Para compilar el proyecto, ejecutar:
+To compile the project, run:
 
 ```
 make
 ```
 
-Para ejecutar MyShell, utilizar:
+To execute MyShell, use:
 
 ```
 ./myshell [batchfile]
 ```
 
-- Si se proporciona un batchfile como argumento, MyShell ejecutará los comandos desde el archivo y se cerrará al alcanzar el final del archivo.
-- Si no se proporciona ningún argumento, MyShell mostrará el prompt y esperará comandos del usuario vía stdin.
+- If a batchfile is provided as an argument, MyShell will execute the commands from the file and close when the end of the file is reached.
+- If no argument is provided, MyShell will display the prompt and wait for user commands via stdin.
